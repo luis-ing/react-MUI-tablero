@@ -80,7 +80,7 @@ const Login = ({ login, setauth }) => {
               sx={{ paddingRight: 6, paddingLeft: 6, display: 'flex', alignItems: 'center' }}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Typography gutterBottom variant="h4" component="div" textAlign="center">
-                  Welcome to Lizard
+                  Welcome to Projects Software
                 </Typography>
                 <Typography gutterBottom variant="button" component="div" textAlign="center">
                   Sign In

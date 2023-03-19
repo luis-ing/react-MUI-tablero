@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    Auth.setThemeMode(true);
+    // Auth.setThemeMode(false);
   });
 
   return Auth.Auth ? (

@@ -15,8 +15,6 @@ const App = () => {
     setThemeMode(!themeMode);
   }
   // console.log("themeMode ", themeMode);
-  console.log("Renderizado App");
-  // Convertir a JSON Auth
   const data = { Auth, setAuth, themeMode, setThemeMode, changeThemeMode };
   return (
     <AuthContext.Provider value={data}>

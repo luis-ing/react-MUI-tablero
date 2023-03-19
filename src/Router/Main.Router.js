@@ -5,6 +5,7 @@ import PrivateRoute from './private/PrivateRoute';
 import Home from '../Moduls/Home/';
 import Dashboard from '../Moduls/Dashboard/Dashboard';
 import Planning from '../Moduls/Planning/Planning';
+import Profile from '../Moduls/Profile/Profile';
 
 const Main = () => {
     console.log("Renderizado Main.Router");
@@ -16,6 +17,7 @@ const Main = () => {
                 <Route path="/">
                     <>
                         <Route index element={<PrivateRoute><Home /></PrivateRoute>} />
+                        <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
                         <Route path="planning" element={<PrivateRoute><Planning /></PrivateRoute>} />
                         <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                     </>
