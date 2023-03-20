@@ -41,27 +41,4 @@ const updateSprintTicket = gql`
     }
 `;
 
-const GetBacklog = gql`
-query GetBacklog($id_proyecto: Int!) {
-    getBacklog(id_proyecto: $id_proyecto) {
-        id
-        titulo
-        contenido
-        fecha_creacion
-        fecha_modificacion
-        orden
-        activo
-        id_creador
-        id_responsable
-        id_urgencia
-        id_columna_tablero
-        id_sprint
-        ColumnaTablero {
-            id
-            descripcion
-        }
-    }
-}
-`;
-
-export { GetSprint, updateSprintTicket, GetBacklog };
+export { GetSprint, updateSprintTicket };

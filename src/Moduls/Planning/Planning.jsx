@@ -10,15 +10,14 @@ import AddIcon from '@mui/icons-material/Add';
 import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
-import { GetSprint, updateSprintTicket, GetBacklog } from './Planning.graphql';
+import { GetSprint, updateSprintTicket } from './Planning.graphql';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 const Planning = () => {
-    const [sprintConfig, setSprintConfig] = useState([{ idSprint: 1, sprintText: 'Tablero Sprint 1', show: true },
-    { idSprint: 2, sprintText: 'Tablero Sprint 2', show: true }]);
+    // const [sprintConfig, setSprintConfig] = useState([{ idSprint: 1, sprintText: 'Tablero Sprint 1', show: true },
+    // { idSprint: 2, sprintText: 'Tablero Sprint 2', show: true }]);
     const [stateShowBacklog, setStateShowBacklog] = useState(true);
     const [dataSprint, setDataSprint] = useState([]);
-    const [dataBacklog, setDataBacklog] = useState([]);
 
     const queryGetSprint = useQuery(GetSprint, {
         variables: {
@@ -26,16 +25,6 @@ const Planning = () => {
         },
         onCompleted: (data) => {
             setDataSprint(data.getSprint.map((item) => ({ ...item, 'openAccordion': true })));
-        }
-    });
-
-    const queryBacklog = useQuery(GetBacklog, {
-        variables: {
-            id_proyecto: 5,
-        },
-        onCompleted: (data) => {
-            console.log(data.getBacklog);
-            setDataBacklog(data.getBacklog);
         }
     });
 
