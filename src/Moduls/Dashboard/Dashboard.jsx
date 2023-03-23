@@ -29,7 +29,7 @@ const Dashboard = () => {
         }
     })
 
-    const { loading: loa, error: err, data, refetch } = useQuery(getTablero, {
+    const { loading: loa, error: err, refetch } = useQuery(getTablero, {
         variables: {
             id_proyecto: 5,
         },
@@ -129,7 +129,12 @@ const Dashboard = () => {
                 <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
                     {tablero && tablero.map((row, iterator) => (
                         <Grid item xs={3} key={row.id}>
-                            <Card elevation={0} sx={{ backgroundColor: '#bdc3d01f' }}>
+                            <Card elevation={0}
+                                sx={{
+                                    backgroundColor: '#bdc3d01f',
+                                    borderRadius: '8px',
+                                }}
+                            >
                                 <CardContent>
                                     <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
                                         {row.descripcion}
@@ -149,6 +154,8 @@ const Dashboard = () => {
                                                                 {...provided.dragHandleProps}
                                                                 sx={{
                                                                     mt: 1, mb: 1,
+                                                                    borderRadius: '8px',
+                                                                    boxShadow: '0px 3px 1px -2px rgba(0,0,0,0), 0px 2px 2px 0px rgba(0,0,0,0), 0px 1px 5px 0px rgba(0,0,0,0)',
                                                                     '&:hover': {
                                                                         cursor: 'pointer'
                                                                     },

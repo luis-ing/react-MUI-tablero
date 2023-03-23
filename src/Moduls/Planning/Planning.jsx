@@ -139,7 +139,7 @@ const Planning = () => {
 
     return (
         <>
-            <Card elevation={0}>
+            <Card elevation={0} sx={{ borderRadius: '8px' }}>
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
                         Proyecto / Nombre de proyecto
@@ -168,7 +168,7 @@ const Planning = () => {
                                         key={item.id}
                                         expanded={item.openAccordion}
                                         onChange={(e) => handleChange(item.id)}
-                                        sx={{ backgroundColor: '#bdc3d01f' }}
+                                        sx={{ backgroundColor: '#bdc3d01f', borderRadius: '8px !important' }}
                                         elevation={0}
                                     >
                                         {item.es_backlog === 0 ? (
@@ -247,8 +247,10 @@ const Planning = () => {
                                                                     {...provided.dragHandleProps}
                                                                     sx={{
                                                                         mt: 1, mb: 1,
+                                                                        borderRadius: '8px',
+                                                                        boxShadow: '0px 3px 1px -2px rgba(0,0,0,0), 0px 2px 2px 0px rgba(0,0,0,0), 0px 1px 5px 0px rgba(0,0,0,0)',
                                                                         '&:hover': {
-                                                                            cursor: 'pointer'
+                                                                            cursor: 'pointer',
                                                                         },
                                                                     }}
                                                                 >
@@ -272,14 +274,14 @@ const Planning = () => {
                                                         !item.es_backlog ? (
                                                             < Box
                                                                 pt={3} pb={2}
-                                                                sx={{ border: 'dashed 2px rgb(145 145 145 / 58%)' }}
+                                                                sx={{ border: 'dashed 2px rgb(145 145 145 / 58%)', borderRadius: '8px', }}
                                                             >
                                                                 <Typography sx={{ color: 'text.secondary', textAlign: 'center' }} variant="caption" display="block" gutterBottom>
                                                                     Planifica un sprint arrastrando el pie de página de sprint debajo de las incidencias correspondientes o arrastrando las incidencias hasta aquí.
                                                                 </Typography>
                                                             </Box>
                                                         ) : (
-                                                            <Box pt={3} pb={2} sx={{ border: 'dashed 2px rgb(145 145 145 / 58%)' }}>
+                                                            <Box pt={3} pb={2} sx={{ border: 'dashed 2px rgb(145 145 145 / 58%)', borderRadius: '8px', }}>
                                                                 <Typography sx={{ color: 'text.secondary', textAlign: 'center' }} variant="caption" display="block" gutterBottom>
                                                                     Tu backlog está vacío.
                                                                 </Typography>
@@ -291,13 +293,13 @@ const Planning = () => {
                                                         elevation={2}
                                                         sx={{
                                                             backgroundColor: '#9695951a',
+                                                            borderRadius: '8px',
                                                             backgroundImage: 'linear-gradient(rgb(255 255 255 / 0%), rgb(255 255 255 / 0%));',
                                                             boxShadow: '0px 3px 1px -2px rgba(0,0,0,0), 0px 2px 2px 0px rgba(0,0,0,0), 0px 1px 5px 0px rgba(0,0,0,0)',
                                                             mt: 1, mb: 1,
                                                             '&:hover': {
                                                                 cursor: 'pointer',
                                                                 backgroundColor: '#96959530',
-                                                                boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
                                                             },
                                                         }}
                                                     >
