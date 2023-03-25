@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
-    Box, Grid, Card, CardActions, CardContent, CardMedia, Button,
+    Box, Grid, Card, TextField, CardActions, CardContent, CardMedia, Button,
     Typography, Accordion, AccordionDetails, AccordionSummary,
-    IconButton, Avatar
+    IconButton, InputAdornment, Avatar, FormControl, InputLabel, OutlinedInput
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AddIcon from '@mui/icons-material/Add';
@@ -24,7 +25,7 @@ const Planning = () => {
             id_proyecto: 5,
         },
         onCompleted: (data) => {
-            setDataSprint(data.getSprint.map((item) => ({ ...item, 'openAccordion': true })));
+            setDataSprint(data.getSprint.map((item) => ({ ...item, 'openAccordion': true, 'showInputNewTicket': false })));
         }
     });
 
@@ -137,6 +138,21 @@ const Planning = () => {
 
     }
 
+    const handleCreateTicket = (idSprint) => {
+        console.log('idSprint ', idSprint);
+        setDataSprint(dataSprint.map((row) => row.id === idSprint
+            ? { ...row, showInputNewTicket: true }
+            : row
+        ));
+    }
+
+    const handleHideNewTicket = (idSprint) => {
+        setDataSprint(dataSprint.map((row) => row.id === idSprint
+            ? { ...row, showInputNewTicket: false }
+            : row
+        ))
+    }
+
     return (
         <>
             <Card elevation={0} sx={{ borderRadius: '8px' }}>
@@ -172,54 +188,52 @@ const Planning = () => {
                                         elevation={0}
                                     >
                                         {item.es_backlog === 0 ? (
-                                            <>
-                                                <Grid container spacing={0}>
-                                                    <Grid item xs={9}>
-                                                        <AccordionSummary
-                                                            expandIcon={<ExpandMoreIcon />}
-                                                            aria-controls="panel1a-content"
-                                                            id="panel1a-header"
+                                            <Grid container spacing={0}>
+                                                <Grid item xs={9}>
+                                                    <AccordionSummary
+                                                        expandIcon={<ExpandMoreIcon />}
+                                                        aria-controls="panel1a-content"
+                                                        id="panel1a-header"
 
-                                                        >
-                                                            <Typography sx={{ width: '70%', flexShrink: 0 }}>
-                                                                {`Tablero Sprint ${item.numer_sprint}`}
-                                                            </Typography>
-                                                            <Typography sx={{ color: 'text.secondary' }}>
-                                                                {`${moment(item.fecha_inicio)
-                                                                    .format('DD MMM')} – ${moment(item.fecha_fin)
-                                                                        .format('DD MMM')} (${item.tickets.length} issue)`}
-                                                            </Typography>
-                                                        </AccordionSummary>
-                                                    </Grid>
-                                                    <Grid
-                                                        item
-                                                        xs={3}
-                                                        pt={!item.openAccordion ? 1 : 2}
-                                                        pr={2}
-                                                        container
-                                                        direction="row"
-                                                        justifyContent="flex-end"
                                                     >
-                                                        <Grid item>
-                                                            {
-                                                                item.iniciado ?
-                                                                    (
-                                                                        <Button variant="outlined" size="small" sx={{ mr: '3px' }}>Completar sprint</Button>
-                                                                    ) : (
-                                                                        <Button variant="outlined" size="small" sx={{ mr: '3px' }}>Iniciar sprint</Button>
-                                                                    )
-                                                            }
-                                                            <Button
-                                                                variant="outlined"
-                                                                size="small"
-                                                                sx={{ minWidth: '40px' }}
-                                                            >
-                                                                <MoreHorizIcon />
-                                                            </Button>
-                                                        </Grid>
+                                                        <Typography sx={{ width: '70%', flexShrink: 0 }}>
+                                                            {`Tablero Sprint ${item.numer_sprint}`}
+                                                        </Typography>
+                                                        <Typography sx={{ color: 'text.secondary' }}>
+                                                            {`${moment(item.fecha_inicio)
+                                                                .format('DD MMM')} – ${moment(item.fecha_fin)
+                                                                    .format('DD MMM')} (${item.tickets.length} issue)`}
+                                                        </Typography>
+                                                    </AccordionSummary>
+                                                </Grid>
+                                                <Grid
+                                                    item
+                                                    xs={3}
+                                                    pt={!item.openAccordion ? 1 : 2}
+                                                    pr={2}
+                                                    container
+                                                    direction="row"
+                                                    justifyContent="flex-end"
+                                                >
+                                                    <Grid item>
+                                                        {
+                                                            item.iniciado ?
+                                                                (
+                                                                    <Button variant="outlined" size="small" sx={{ mr: '3px' }}>Completar sprint</Button>
+                                                                ) : (
+                                                                    <Button variant="outlined" size="small" sx={{ mr: '3px' }}>Iniciar sprint</Button>
+                                                                )
+                                                        }
+                                                        <Button
+                                                            variant="outlined"
+                                                            size="small"
+                                                            sx={{ minWidth: '40px' }}
+                                                        >
+                                                            <MoreHorizIcon />
+                                                        </Button>
                                                     </Grid>
                                                 </Grid>
-                                            </>
+                                            </Grid>
                                         ) : (
                                             <AccordionSummary
                                                 expandIcon={<ExpandMoreIcon />}
@@ -303,11 +317,44 @@ const Planning = () => {
                                                             },
                                                         }}
                                                     >
-                                                        <CardContent sx={{ display: 'flex' }}>
-                                                            <Box sx={{ flexShrink: 0, display: 'flex' }}>
-                                                                <AddIcon />
-                                                                <Typography>Crear incidencia </Typography>
-                                                            </Box>
+                                                        <CardContent
+                                                            sx={{
+                                                                display: 'flex',
+                                                                padding: '10px !important',
+                                                                // paddingBottom: '16px !important'
+                                                            }}
+                                                        >
+                                                            {!item.showInputNewTicket ? (
+                                                                <Box
+                                                                    sx={{
+                                                                        flexShrink: 0, display: 'flex',
+                                                                        width: '100%', padding: '9px'
+                                                                    }}
+                                                                    onClick={() => handleCreateTicket(item.id)}
+                                                                >
+                                                                    <AddIcon />
+                                                                    <Typography>Crear incidencia </Typography>
+                                                                </Box>
+                                                            ) : (
+                                                                <FormControl sx={{ m: 1, width: '100%' }} variant="outlined">
+                                                                    <InputLabel htmlFor="new-ticket">¿Que se debe hacer?</InputLabel>
+                                                                    <OutlinedInput
+                                                                        id="new-ticket"
+                                                                        type="text"
+                                                                        endAdornment={
+                                                                            <InputAdornment position="end">
+                                                                                <IconButton
+                                                                                    onClick={() => handleHideNewTicket(item.id)}
+                                                                                    edge="end"
+                                                                                >
+                                                                                    <CloseIcon />
+                                                                                </IconButton>
+                                                                            </InputAdornment>
+                                                                        }
+                                                                        label="¿Que se debe hacer?"
+                                                                    />
+                                                                </FormControl>
+                                                            )}
                                                         </CardContent>
                                                     </Card>
                                                 </AccordionDetails>
