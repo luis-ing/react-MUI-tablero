@@ -196,10 +196,10 @@ const Planning = () => {
                                                         id="panel1a-header"
 
                                                     >
-                                                        <Typography sx={{ width: '70%', flexShrink: 0 }}>
+                                                        <Typography sx={{ flexShrink: 0 }}>
                                                             {`Tablero Sprint ${item.numer_sprint}`}
                                                         </Typography>
-                                                        <Typography sx={{ color: 'text.secondary' }}>
+                                                        <Typography sx={{ width: '100%', textAlign: 'end', color: 'text.secondary' }}>
                                                             {`${moment(item.fecha_inicio)
                                                                 .format('DD MMM')} – ${moment(item.fecha_fin)
                                                                     .format('DD MMM')} (${item.tickets.length} issue)`}
@@ -217,11 +217,18 @@ const Planning = () => {
                                                 >
                                                     <Grid item>
                                                         {
-                                                            item.iniciado ?
+                                                            item.iniciado && !item.completado ?
                                                                 (
                                                                     <Button variant="outlined" size="small" sx={{ mr: '3px' }}>Completar sprint</Button>
                                                                 ) : (
-                                                                    <Button variant="outlined" size="small" sx={{ mr: '3px' }}>Iniciar sprint</Button>
+                                                                    <Button
+                                                                        variant="outlined"
+                                                                        size="small"
+                                                                        sx={{ mr: '3px' }}
+                                                                        disabled={item?.tickets?.length ? false : true}
+                                                                    >
+                                                                        Iniciar sprint
+                                                                    </Button>
                                                                 )
                                                         }
                                                         <Button
